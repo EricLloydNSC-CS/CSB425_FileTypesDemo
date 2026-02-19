@@ -3,6 +3,9 @@
 *.parquet
 *.orc
 
+# Generated CSV data (large file)
+sample_data.csv
+
 # Python
 __pycache__/
 *.py[cod]

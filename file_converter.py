@@ -47,18 +47,20 @@ def convert_to_avro(df, output_path):
     print("Converting to AVRO format")
     print(f"{'='*60}")
     
-    # Define Avro schema
+    # Define Avro schema - dynamically build from DataFrame columns
+    fields = []
+    for col in df.columns:
+        if col == 'id' or col == 'age':
+            fields.append({'name': col, 'type': 'long'})
+        elif col == 'salary':
+            fields.append({'name': col, 'type': 'double'})
+        else:
+            fields.append({'name': col, 'type': 'string'})
+    
     schema = {
         'name': 'Employee',
         'type': 'record',
-        'fields': [
-            {'name': 'id', 'type': 'long'},
-            {'name': 'name', 'type': 'string'},
-            {'name': 'age', 'type': 'long'},
-            {'name': 'city', 'type': 'string'},
-            {'name': 'salary', 'type': 'double'},
-            {'name': 'hire_date', 'type': 'string'}
-        ]
+        'fields': fields
     }
     
     parsed_schema = parse_schema(schema)
