@@ -36,18 +36,25 @@ def convert_to_avro(df, output_file):
     print("Converting to Avro format...")
     print(f"{'='*60}")
     
-    # Define Avro schema
+    # Infer Avro schema from DataFrame
+    fields = []
+    for col in df.columns:
+        dtype = df[col].dtype
+        if dtype == 'int64':
+            avro_type = "long"
+        elif dtype == 'float64':
+            avro_type = "double"
+        elif dtype == 'bool':
+            avro_type = "boolean"
+        else:
+            avro_type = "string"
+        
+        fields.append({"name": col, "type": ["null", avro_type]})
+    
     avro_schema = {
         "type": "record",
-        "name": "Employee",
-        "fields": [
-            {"name": "id", "type": "long"},
-            {"name": "name", "type": "string"},
-            {"name": "age", "type": "long"},
-            {"name": "salary", "type": "double"},
-            {"name": "department", "type": "string"},
-            {"name": "join_date", "type": "string"}
-        ]
+        "name": "Record",
+        "fields": fields
     }
     
     # Convert DataFrame to list of dictionaries
