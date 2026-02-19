@@ -1,0 +1,11 @@
+id,name,age,salary,department,join_date
+1,John Smith,28,75000.50,Engineering,2020-01-15
+2,Jane Doe,32,85000.75,Marketing,2019-05-20
+3,Bob Johnson,45,95000.00,Sales,2018-03-10
+4,Alice Williams,29,72000.25,Engineering,2021-02-28
+5,Charlie Brown,38,88000.50,Finance,2019-11-05
+6,Diana Prince,31,91000.00,Engineering,2020-07-12
+7,Edward Norton,42,105000.75,Management,2017-09-01
+8,Fiona Green,27,68000.00,Marketing,2021-06-15
+9,George Wilson,35,82000.50,Sales,2019-08-22
+10,Hannah Miller,30,79000.25,Finance,2020-04-18
