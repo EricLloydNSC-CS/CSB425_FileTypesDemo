@@ -47,15 +47,22 @@ def convert_to_avro(df, output_path):
     print("Converting to AVRO format")
     print(f"{'='*60}")
     
-    # Define Avro schema - dynamically build from DataFrame columns
+    # Define Avro schema - dynamically build from DataFrame dtypes
     fields = []
     for col in df.columns:
-        if col == 'id' or col == 'age':
-            fields.append({'name': col, 'type': 'long'})
-        elif col == 'salary':
-            fields.append({'name': col, 'type': 'double'})
+        dtype = df[col].dtype
+        # Map pandas dtypes to Avro types
+        if dtype in ['int64', 'int32', 'int16', 'int8']:
+            avro_type = 'long'
+        elif dtype in ['float64', 'float32']:
+            avro_type = 'double'
+        elif dtype == 'bool':
+            avro_type = 'boolean'
         else:
-            fields.append({'name': col, 'type': 'string'})
+            # Default to string for object/string types
+            avro_type = 'string'
+        
+        fields.append({'name': col, 'type': avro_type})
     
     schema = {
         'name': 'Employee',
